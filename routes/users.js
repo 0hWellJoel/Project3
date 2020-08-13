@@ -2,12 +2,20 @@ var db = require("../models");
 var passport = require("../config/passport");
 var router = require('express').Router();
 
-router.post("/api/login", passport.authenticate("local"), function(req, res) {
+router.post("/api/login", function(req, res, next) {
+    passport.authenticate('local',function(err, user, info){
+        console.log(user);
+        if (err) { return next(err); }
+        if (!user) { 
+            console.log("couldnt find");
+            return res.redirect('/'); }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.json(user);
+        });
+    })(req,res,next)
     // Sending back a password, even a hashed password, isn't a good idea
-    res.json({
-      email: req.user.email,
-      id: req.user.id
-    });
+    // res.json("logged in");
   });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
