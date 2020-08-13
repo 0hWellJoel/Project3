@@ -1,9 +1,20 @@
 import React from 'react';
-import * as registerPage from '../App';
+import { useHistory } from 'react-router-dom';
+
 function Home(){
-    console.log(registerPage)
+    let history = useHistory();
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    const logout = () =>{
+        localStorage.removeItem('user');
+        history.push('/');
+    }
     return(
-        <div>Hello Joel</div>
+        <div>
+            <div>Hello {user.email}</div>
+            <button onClick={logout}>Logout</button>
+        </div>
+        
     )
 }
 

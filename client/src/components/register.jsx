@@ -20,7 +20,7 @@ export class Register extends React.Component {
     console.log("test");
     API.signup(this.state)
     .then(function(res){
-      console.log(res);
+      localStorage.setItem('user', JSON.stringify(res.data));
     })
   }
   render() {

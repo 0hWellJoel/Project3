@@ -20,7 +20,7 @@ function Login(props) {
     }
     API.login(data)
     .then(function(res){
-      console.log(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
       history.push("/home");
     })
     .catch(function(err){
