@@ -1,6 +1,6 @@
 var db = require("../models");
-var passport = require("../passport");
-var router = requre('express').Router();
+var passport = require("../config/passport");
+var router = require('express').Router();
 
 router.post("/api/login", passport.authenticate("local"), function(req, res) {
     // Sending back a password, even a hashed password, isn't a good idea
