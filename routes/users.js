@@ -4,11 +4,9 @@ var router = require('express').Router();
 
 router.post("/api/login", function(req, res, next) {
     passport.authenticate('local',function(err, user, info){
-        console.log(user);
-        if (err) { return next(err); }
+        if (err) { return res.json(err); }
         if (!user) { 
-            console.log("couldnt find");
-            return res.redirect('/'); }
+            return res.status(404).json({message: 'No user found'}); }
         req.logIn(user, function(err) {
           if (err) { return next(err); }
           return res.json(user);

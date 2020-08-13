@@ -24,6 +24,10 @@ export class Login extends React.Component {
     .then(function(res){
       console.log(res);
     })
+    .catch(function(err){
+      console.log(err);
+      alert("Sorry, auth failed");
+    })
   }
   render() {
     return (
