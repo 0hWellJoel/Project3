@@ -2,7 +2,7 @@ import React from "react";
 import "./components/signLogin.css";
 import { Login, Register } from "./components/index";
 
-class registerPage extends React.Component {
+class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,4 +69,4 @@ const RightSide = props => {
   );
 };
 
-export default registerPage;
+export default RegisterPage;

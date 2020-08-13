@@ -1,37 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
 import loginImg from "./login.svg";
 import API from "../utils/Api"
-export class Login extends React.Component {
-  state = {
-    username: '',
-    password: ''
-  }
+import {useHistory} from 'react-router-dom';
+
+function Login(props) {
+  const [user, setUser] = useState(''); 
+  const history = useHistory();
 
   onchange = (e)=>{
     let key = e.target.name;
     let value = e.target.value;
-    this.setState({
-      [key]:value
-    })
+    setUser({...user, [key]:value});
+    console.log(user);
   }
   onsubmit = ()=>{
-    console.log("test");
-    let user = {
-      email: this.state.username,
-      password: this.state.password
+    let data = {
+      email: user.username,
+      password: user.password
     }
-    API.login(user)
+    API.login(data)
     .then(function(res){
-      console.log(res);
+      console.log(res.data);
+      history.push("/home");
     })
     .catch(function(err){
       console.log(err);
       alert("Sorry, auth failed");
     })
   }
-  render() {
     return (
-      <div className="base-container" ref={this.props.containerRef}>
+      <div className="base-container" ref={props.containerRef}>
         <div className="header">Login</div>
         <div className="content">
           <div className="image">
@@ -40,20 +38,21 @@ export class Login extends React.Component {
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input type="text" name="username" placeholder="username" onChange={this.onchange} />
+              <input type="text" name="username" placeholder="username" onChange={onchange} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password" onChange={this.onchange}/>
+              <input type="password" name="password" placeholder="password" onChange={onchange}/>
             </div>
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" onClick={this.onsubmit}>
+          <button type="button" className="btn" onClick={onsubmit}>
             Login
           </button>
         </div>
       </div>
     )
-  }
 }
+
+export {Login}
